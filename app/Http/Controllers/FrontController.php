@@ -9,7 +9,7 @@ class FrontController extends Controller
 {
     public function index()
     {
-        $measure = Measure::get()->toArray();
+        $measure = Measure::get()->first()->toArray();
         dd($measure);
         return view('welcome');
     }

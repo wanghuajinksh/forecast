@@ -11,4 +11,14 @@ class Measure extends Model
     protected $fillable = [
         'nameId', 'value', 'locationId', 'forecastDate', 'date', 'localDate'
     ];
+
+    public function endpoint()
+    {
+        return belongsTo('App\Endpoint', 'nameId', 'nameId');
+    }
+
+    public function location()
+    {
+        return belongsTo('App\Measure', 'locationId', 'locationId');
+    }
 }
