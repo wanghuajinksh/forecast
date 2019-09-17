@@ -1,70 +1,72 @@
 <template>
     <div class="container">
       <section>
-        <table class="table">
-          <thead>
-            <tr>
-              <th></th>
-              <th>Firstname</th>
-              <th>Lastname</th>
-            </tr>
-          </thead>
-          <tbody>
-            
-            <tr>
-              <td>08:00</td>
-              <td>
-                <div class="detail_data">
-                  <div class="row">
-                    <div class="col-4">
-                      <i class="fa fa-arrow-circle-up arrow"></i>
-                    </div>
-                    <div class="col-8">
-                      <div>298º</div>
-                      <div style="margin-top: -5px;">w</div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-              <td>
-                <div class="detail_data">
-                  <div class="row">
-                    <div class="col-12" style="padding:0;margin-top:-5px;">
-                      <span style="font-size:35px;">11.9</span>
-                      <span style="vertical-align: top;">m</span>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Firstname</th>
+                <th>Lastname</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+              <tr>
+                <td>08:00</td>
+                <td>
+                  <div class="detail_data">
+                    <div class="row">
+                      <div class="col-4">
+                        <i class="fa fa-arrow-circle-up arrow"></i>
+                      </div>
+                      <div class="col-8">
+                        <div>298º</div>
+                        <div style="margin-top: -5px;">w</div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </td>              
-            </tr>
-            <tr>
-              <td>11:00</td>
-              <td>
-                <div class="detail_data">
-                  <div class="row">
-                    <div class="col-4">
-                      <i class="fa fa-arrow-circle-up arrow"></i>
-                    </div>
-                    <div class="col-8">
-                      <div>298º</div>
-                      <div style="margin-top: -5px;">w</div>
+                </td>
+                <td>
+                  <div class="detail_data">
+                    <div class="row">
+                      <div class="col-12" style="padding:0;margin-top:-5px;">
+                        <span style="font-size:35px;">11.9</span>
+                        <span style="vertical-align: top;">m</span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </td>
-              <td>
-                <div class="detail_data">
-                  <div class="row">
-                    <div class="col-12" style="padding:0;margin-top:-5px;">
-                      <span style="font-size:35px;">11.9</span>
-                      <span style="vertical-align: top;">kn</span>
+                </td>              
+              </tr>
+              <tr>
+                <td>11:00</td>
+                <td>
+                  <div class="detail_data">
+                    <div class="row">
+                      <div class="col-4">
+                        <i class="fa fa-arrow-circle-up arrow"></i>
+                      </div>
+                      <div class="col-8">
+                        <div>298º</div>
+                        <div style="margin-top: -5px;">w</div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </td>              
-            </tr>            
-          </tbody>
-        </table>
+                </td>
+                <td>
+                  <div class="detail_data">
+                    <div class="row">
+                      <div class="col-12" style="padding:0;margin-top:-5px;">
+                        <span style="font-size:35px;">11.9</span>
+                        <span style="vertical-align: top;">kn</span>
+                      </div>
+                    </div>
+                  </div>
+                </td>              
+              </tr>            
+            </tbody>
+          </table>
+        </div>
       </section>
       <section>
         <div class="row">

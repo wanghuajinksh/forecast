@@ -14,7 +14,7 @@
     <div class="bottom_nav">
       <div class="row">
         <div class="col-4">
-          <div class="float-left date"><i class="fa fa-caret-left"></i>&nbsp;<span>27/08</span></div>
+          <div class="float-left date"><i class="fa fa-caret-left"></i>&nbsp;<span>{{date_left | date_format}}</span></div>
         </div>
         <div class="col-4">
           <div class="text-center">
@@ -24,7 +24,7 @@
           </div>
         </div>
         <div class="col-4">
-          <div class="float-right date"><span>28/08</span>&nbsp;<i class="fa fa-caret-right"></i></div>
+          <div class="float-right date"><span>{{date_right | date_format}}</span>&nbsp;<i class="fa fa-caret-right"></i></div>
         </div>
       </div>
       <div class="clearfix"></div>
@@ -94,17 +94,15 @@
           </router-link>
         </div>
         <hr />
-        <div class="area">
-          <li><span>Punta del ADCP</span></li>
-          <li><span>Bocana</span></li>
-          <li><span>Estacion Practicos</span></li>
+        <div class="area" v-if="loaded">
+          <li  v-for="item in location" :key="item.locationId"><span>{{item.name}}</span></li>
         </div>
       </ul>
     </div>
 
     <transition name="slide" mode="out-in">
       <router-view></router-view>
-    </transition>    
+    </transition>
 
     <footer class="text-center footer" >
       <h5>Empresa Portuaria San Antonio</h5>
@@ -122,14 +120,23 @@
   export default {
     data() {
       return {
+        loaded: false,
         sidebar_flag: true,
         sidebar_animation: [this.sidebar_flag ? "slideInRight" : "slideOutRight"],
         clock_flag: false,
-        
+        date: [],
+        location: [],
+        base_url: '',
+        uri: '',
+        date_left: '',
+        date_right: '',
       };
     },
     async mounted () {
-        
+      this.base_url = document.getElementById('base_url').value;
+      this.uri = this.base_url + 'api/date_location';
+      this.loaded = false;
+      this.init();
     },
     methods: {
       sidebar: function() {
@@ -138,11 +145,40 @@
         ];
         this.sidebar_flag = !this.sidebar_flag;
       },
-      
+      init () {
+        try {
+            this.axios.get(this.uri).then(res => {
+              if(Object.keys(res.data).length > 0){
+                this.date = res.data.dates;
+                this.location = res.data.location;
+                this.loaded = true;                
+                this.date_left = this.date[0];
+                this.date_right = this.date[1];
+              }
+            }).catch(function (error) {
+                if(error != ''){
+                }                
+            })
+            .finally(function () {
+                // always executed
+            });
+        } catch (e) {
+        console.error(e)
+        }
+      }
     },
     created() {
       this.sidebar_animation = "display_none";
     },
+    filters: {
+      date_format: function(value){
+        if (!value) return '';
+        let date = [];
+        date = value.split(' ')[0];
+        date = date.split('-');
+        return date[2] + '/' + date[1];
+      }
+    }
     
   };
 </script>
@@ -161,8 +197,8 @@ section {
   animation: slide-in 0.5s ease-out forwards;
   transition: opacity 0.5s;
 }
-.slide-leave {
-}
+/* .slide-leave {
+} */
 .slide-leave-active {
   animation: slide-out 0.5s ease-out forwards;
   transition: opacity 0.5s;
@@ -337,6 +373,16 @@ table {
 @media only screen and (max-width: 600px) {
   .clock_card, table {
     width: 100%;
+  }
+  .detail_data span:first-child{
+    font-size: 30px !important;
+  }
+
+  .table th, .table td {
+   
+    padding-left: 0.05rem;
+    padding-right: 0.05rem;
+    
   }
 }
 </style>

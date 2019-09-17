@@ -14,6 +14,6 @@ class Unit extends Model
 
     public function endpoints()
     {
-        return hasMany('App\Endpoint', 'unitId', 'unitId');
+        return $this->hasMany('App\Endpoint', 'unitId', 'unitId');
     }
 }

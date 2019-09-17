@@ -6,6 +6,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>Laravel</title>
+        <link rel="icon" href="{{asset('img/app_icon-9df2cc9fdd.png')}}">
         <link href="{{ asset('css/animate.css') }}" rel="stylesheet">
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <style>

@@ -14,11 +14,11 @@ class Measure extends Model
 
     public function endpoint()
     {
-        return belongsTo('App\Endpoint', 'nameId', 'nameId');
+        return $this->belongsTo('App\Endpoint', 'nameId', 'nameId');
     }
 
     public function location()
     {
-        return belongsTo('App\Measure', 'locationId', 'locationId');
+        return $this->belongsTo('App\Measure', 'locationId', 'locationId');
     }
 }

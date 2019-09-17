@@ -14,11 +14,11 @@ class Endpoint extends Model
 
     public function unit()
     {
-        return belongsTo('App\Unit', 'unitId', 'unitId');
+        return $this->belongsTo('App\Unit', 'unitId', 'unitId');
     }
 
     public function measures()
     {
-        return hasMany('App\Measure', 'nameId', 'nameId');
+        return $this->hasMany('App\Measure', 'nameId', 'nameId');
     }
 }

@@ -1975,14 +1975,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      loaded: false,
       sidebar_flag: true,
       sidebar_animation: [this.sidebar_flag ? "slideInRight" : "slideOutRight"],
-      clock_flag: false
+      clock_flag: false,
+      date: [],
+      location: [],
+      base_url: '',
+      uri: '',
+      date_left: '',
+      date_right: ''
     };
   },
   mounted: function () {
@@ -1993,11 +1998,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
+              this.base_url = document.getElementById('base_url').value;
+              this.uri = this.base_url + 'api/date_location';
+              this.loaded = false;
+              this.init();
+
+            case 4:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee);
+      }, _callee, this);
     }));
 
     function mounted() {
@@ -2010,10 +2021,39 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     sidebar: function sidebar() {
       this.sidebar_animation = [this.sidebar_flag ? "slideInRight" : "slideOutRight"];
       this.sidebar_flag = !this.sidebar_flag;
+    },
+    init: function init() {
+      var _this = this;
+
+      try {
+        this.axios.get(this.uri).then(function (res) {
+          if (Object.keys(res.data).length > 0) {
+            _this.date = res.data.dates;
+            _this.location = res.data.location;
+            _this.loaded = true;
+            _this.date_left = _this.date[0];
+            _this.date_right = _this.date[1];
+          }
+        })["catch"](function (error) {
+          if (error != '') {}
+        })["finally"](function () {// always executed
+        });
+      } catch (e) {
+        console.error(e);
+      }
     }
   },
   created: function created() {
     this.sidebar_animation = "display_none";
+  },
+  filters: {
+    date_format: function date_format(value) {
+      if (!value) return '';
+      var date = [];
+      date = value.split(' ')[0];
+      date = date.split('-');
+      return date[2] + '/' + date[1];
+    }
   }
 });
 
@@ -2173,12 +2213,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       loaded: false,
       normal_options: {
+        elements: {
+          point: {
+            radius: 0
+          }
+        },
         legend: {
           display: false,
           labels: {
@@ -2191,7 +2238,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               beginAtZero: true,
               fontSize: 15 // max: 50
 
-            }
+            } // gridLines: {
+            //     zeroLineColor: 'red'
+            // }
+
           }],
           xAxes: [{
             ticks: {
@@ -2204,6 +2254,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         responsive: true
       },
       multi_options: {
+        elements: {
+          point: {
+            radius: 0
+          }
+        },
         legend: {
           display: false,
           labels: {
@@ -2212,12 +2267,52 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         },
         scales: {
           yAxes: [{
+            id: 'A',
+            // type: 'linear',
+            position: 'left',
             ticks: {
-              beginAtZero: true,
-              fontSize: 15 // max: 50
-
+              min: 0
             }
-          }],
+          }, {
+            id: 'B',
+            // type: 'linear',
+            position: 'right',
+            ticks: {
+              min: 0
+            },
+            gridLines: {
+              display: false
+            }
+          }, {
+            id: 'C',
+            // type: 'linear',
+            position: 'left',
+            ticks: {
+              min: 0,
+              display: false
+            },
+            gridLines: {
+              drawBorder: false,
+              display: false
+            }
+          }, {
+            id: 'D',
+            // type: 'linear',
+            position: 'left',
+            ticks: {
+              min: 0,
+              display: false
+            },
+            gridLines: {
+              drawBorder: false,
+              display: false
+            }
+          } // scaleLabel: {
+          //   display: true,
+          //   labelString: 'probability',
+          //   lineHeight: 2,
+          // }
+          ],
           xAxes: [{
             ticks: {
               beginAtZero: true,
@@ -2231,51 +2326,104 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       chartdata_normal: null,
       chartdata_multi: null,
       chart_data_normal: [],
-      chart_data_multi: [],
+      chart_data_multi_left: [],
+      chart_data_multi_right: [],
       chart_labels_normal: [],
-      chart_labels_multi: [],
+      // chart_labels_multi: [],
       base_url: '',
-      uri: ''
+      uri: '',
+      all_data: []
     };
   },
   methods: {
     init: function init() {
+      var _this = this;
+
       this.loaded = true;
       var currentObject = this;
-      this.uri = this.base_url + ''; // try {
-      //     this.axios.get(this.uri).then(response => {
-      //         if(Object.keys(response.data).length > 0){
-      //             this.tweet_counter = response.data.tweet_counter;
-      //             this.today_count = response.data.today_count;
-      //             this.user_count = response.data.user_count;
-      //             this.first_date = response.data.key_array[0];
-      //             this.last_date = response.data.key_array[6];
-      //             this.chart_labels = response.data.key_array;
-      //             this.chart_data = response.data.tweet_number;
-      //             this.chartdata = {
-      //                 labels: this.chart_labels,
-      //                 datasets: [{
-      //                     backgroundColor: "#50aa5b",
-      //                     data: this.chart_data,
-      //                     fill: true,
-      //                     borderWidth: 1,
-      //                     borderColor: 'rgba(255,99,132,1)',
-      //                 }],
-      //             }
-      //             this.loaded = true;
-      //             this.flag = true;
-      //         }
-      //     }).catch(function (error) {
-      //         if(error != ''){
-      //             currentObject.flag = true;
-      //         }
-      //     })
-      //     .finally(function () {
-      //         // always executed
-      //     });
-      // } catch (e) {
-      // console.error(e)
-      // }
+
+      try {
+        this.axios.get(this.uri).then(function (res) {
+          if (Object.keys(res.data).length > 0) {
+            console.log(res.data.data);
+            _this.all_data = res.data.data;
+
+            for (var i = 0; i < _this.all_data.length; i++) {
+              if (_this.all_data[i].nameId == 'dir') {
+                _this.chart_labels_normal.push(_this.date_format(_this.all_data[i].localDate));
+
+                _this.chart_data_normal.push(_this.all_data[i].value);
+              }
+
+              if (_this.all_data[i].nameId == 'hm0') {
+                _this.chart_data_multi_left.push(_this.all_data[i].value);
+              }
+
+              if (_this.all_data[i].nameId == 'tp') {
+                _this.chart_data_multi_right.push(_this.all_data[i].value);
+              }
+            }
+
+            console.log(_this.chart_data_multi_left);
+            _this.chartdata_normal = {
+              labels: _this.chart_labels_normal,
+              datasets: [{
+                backgroundColor: "red",
+                label: 'dir',
+                data: _this.chart_data_normal,
+                fill: false,
+                borderWidth: 3,
+                borderColor: 'rgba(255,99,132,1)'
+              }]
+            };
+            _this.chartdata_multi = {
+              labels: _this.chart_labels_normal,
+              datasets: [{
+                label: 'hm0',
+                yAxisID: 'A',
+                data: _this.chart_data_multi_left,
+                fill: false,
+                borderWidth: 3,
+                borderColor: '#dc5c0d'
+              }, {
+                label: 'tp',
+                yAxisID: 'B',
+                data: _this.chart_data_multi_right,
+                fill: false,
+                borderWidth: 3,
+                borderColor: '#247ade'
+              }, {
+                label: 'tp',
+                yAxisID: 'A',
+                data: [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
+                fill: false,
+                borderWidth: 3,
+                borderColor: '#247ade'
+              }, {
+                label: 'tp',
+                yAxisID: 'A',
+                data: [3.5, 3.5, 3.5, 3.5, 3.5, 3.5, 3.5, 3.5, 3.5, 3.5, 3.5],
+                fill: false,
+                borderWidth: 3,
+                borderColor: '#247ade'
+              }]
+            };
+            _this.loaded = true;
+          }
+        })["catch"](function (error) {
+          if (error != '') {}
+        })["finally"](function () {// always executed
+        });
+      } catch (e) {
+        console.error(e);
+      }
+    },
+    date_format: function date_format(value) {
+      if (!value) return '';
+      var date = [];
+      date = value.split(' ')[1];
+      date = date.split(':');
+      return date[0] + 'h';
     }
   },
   mounted: function () {
@@ -2288,9 +2436,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 0:
               this.loaded = false;
               this.base_url = document.getElementById('base_url').value;
+              this.uri = this.base_url + 'api/init_wave';
               this.init();
 
-            case 3:
+            case 4:
             case "end":
               return _context.stop();
           }
@@ -2329,6 +2478,8 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
 //
 //
 //
@@ -21656,7 +21807,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.display_none {\r\n  display: none;\n}\nsection {\r\n  margin-top: 50px;\n}\n.slide-enter {\r\n  opacity: 0;\n}\n.slide-enter-active {\r\n  -webkit-animation: slide-in 0.5s ease-out forwards;\r\n          animation: slide-in 0.5s ease-out forwards;\r\n  transition: opacity 0.5s;\n}\n.slide-leave {\n}\n.slide-leave-active {\r\n  -webkit-animation: slide-out 0.5s ease-out forwards;\r\n          animation: slide-out 0.5s ease-out forwards;\r\n  transition: opacity 0.5s;\r\n  opacity: 0;\n}\n@-webkit-keyframes slide-in {\nfrom {\r\n    transform: translateY(100px);\n}\nto {\r\n    transform: translateY(0);\n}\n}\n@keyframes slide-in {\nfrom {\r\n    transform: translateY(100px);\n}\nto {\r\n    transform: translateY(0);\n}\n}\n@-webkit-keyframes slide-out {\nfrom {\r\n    transform: translateY(0);\n}\nto {\r\n    transform: translateY(20px);\n}\n}\n@keyframes slide-out {\nfrom {\r\n    transform: translateY(0);\n}\nto {\r\n    transform: translateY(20px);\n}\n}\n.animated {\r\n  -webkit-animation-duration: 400ms;\r\n  animation-duration: 400ms;\n}\n.nav_green {\r\n  background: #0e8cb3;\r\n  color: white;\r\n  padding: 2px 10px;\n}\n.nav_green .navbar-toggler {\r\n  color: rgba(255, 255, 255, 0.5);\r\n  border-color: rgba(255, 255, 255, 0.3);\n}\n.nav_green .navbar-brand {\r\n  color: white;\n}\n.nav_green .navbar-toggler-icon {\r\n  background-image: url(\"data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='rgba(255, 255, 255, 1)' stroke-width='3' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e\");\n}\n.sidebar {\r\n  position: fixed;\r\n  top: 0;\r\n  right: 0;\r\n  width: 20em;\r\n  height: 100%;\r\n  padding: 0px;\r\n  z-index: 1;\r\n  background-color: #44484c;\r\n  overflow-x: hidden;\r\n  transition: 0.5s;\n}\nnav {\r\n  height: 45px;\n}\n.bottom_nav {\r\n  position: relative;\r\n  height: 32px;\r\n  padding: 4px 1px;\r\n  background: #0a6d8c;\r\n  color: white;\n}\n.bottom_nav .text-center i {\r\n  font-size: 19px;\r\n  margin-top: 2px;\n}\n.bottom_nav .date {\r\n  cursor: pointer;\n}\n.bottom_nav .date i, .navbar-brand i {\r\n  color:#f9ad1f;font-size:15px;\n}\n.navbar-brand {\r\n  padding: 0;\n}\n.bottom_nav .clock {\r\n  width: 35px;\r\n  margin: auto;\r\n  background: #0e8cb3;\n}\n.top_text {\r\n  height: 45px;\r\n  background: #1e96bb;\r\n  /* font-family: Rubik; */\r\n  font-size: 18px;\r\n  color: #fff;\r\n  padding-left: 10px;\r\n  padding-top: 10px;\r\n  padding-right: 10px;\n}\n.bottom_nav div.row {\r\n  margin: 0;\n}\n#menu {\r\n  padding-top: 20px;\n}\na {\r\n  text-decoration: none;\n}\n#menu li a,\r\n#menu li {\r\n  color: white;\r\n  padding-bottom: 10px;\n}\n#menu .area li span {\r\n  cursor: pointer;\n}\n#menu .area li span:hover {\r\n  color: #a7a6a6;\n}\n#menu .active a {\r\n  color: #a7a6a6;\r\n  cursor: default;\r\n  text-decoration: none;\n}\ni {\r\n  cursor: pointer;\n}\nli {\r\n  list-style-type: none;\n}\nhr {\r\n  border-top: 1px solid rgba(251, 247, 247, 0.2);\n}\n.clock_card {\r\n  width: 500px;\r\n  margin: 3px auto;\r\n  box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);\r\n  border: none;\n}\n.clock_card p {\r\n  margin-bottom: 5px;\n}\n.card-body {\r\n  padding: 10px;\n}\n.detail_data {\r\n  width: 70px;\r\n  margin: auto;\r\n  color: rgb(73, 144, 226);\n}\n.detail_data i {\r\n  font-size: 40px;\r\n  color: rgb(73, 144, 226);\r\n  cursor:default;\n}\ntable {\r\n  text-align: center;\r\n  width: 600px;\r\n  margin: auto;\r\n  margin-top: 30px;\n}\n.table thead th, .table th, .table td {\r\n  border: none;\n}\n.footer {\r\n  margin-top: 50px;\r\n  padding: 20px;\r\n  color: white;\r\n  background-image: url(/img/epsa_footer_lg-2dc54a1a6a.jpg);\r\n  background-size: cover;\r\n  background-position: center;\n}\n.footer p {\r\n  margin-bottom: 5px;\n}\n@media only screen and (max-width: 600px) {\n.clock_card, table {\r\n    width: 100%;\n}\n}\r\n", ""]);
+exports.push([module.i, "\n.display_none {\r\n  display: none;\n}\nsection {\r\n  margin-top: 50px;\n}\n.slide-enter {\r\n  opacity: 0;\n}\n.slide-enter-active {\r\n  -webkit-animation: slide-in 0.5s ease-out forwards;\r\n          animation: slide-in 0.5s ease-out forwards;\r\n  transition: opacity 0.5s;\n}\r\n/* .slide-leave {\r\n} */\n.slide-leave-active {\r\n  -webkit-animation: slide-out 0.5s ease-out forwards;\r\n          animation: slide-out 0.5s ease-out forwards;\r\n  transition: opacity 0.5s;\r\n  opacity: 0;\n}\n@-webkit-keyframes slide-in {\nfrom {\r\n    transform: translateY(100px);\n}\nto {\r\n    transform: translateY(0);\n}\n}\n@keyframes slide-in {\nfrom {\r\n    transform: translateY(100px);\n}\nto {\r\n    transform: translateY(0);\n}\n}\n@-webkit-keyframes slide-out {\nfrom {\r\n    transform: translateY(0);\n}\nto {\r\n    transform: translateY(20px);\n}\n}\n@keyframes slide-out {\nfrom {\r\n    transform: translateY(0);\n}\nto {\r\n    transform: translateY(20px);\n}\n}\n.animated {\r\n  -webkit-animation-duration: 400ms;\r\n  animation-duration: 400ms;\n}\n.nav_green {\r\n  background: #0e8cb3;\r\n  color: white;\r\n  padding: 2px 10px;\n}\n.nav_green .navbar-toggler {\r\n  color: rgba(255, 255, 255, 0.5);\r\n  border-color: rgba(255, 255, 255, 0.3);\n}\n.nav_green .navbar-brand {\r\n  color: white;\n}\n.nav_green .navbar-toggler-icon {\r\n  background-image: url(\"data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='rgba(255, 255, 255, 1)' stroke-width='3' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e\");\n}\n.sidebar {\r\n  position: fixed;\r\n  top: 0;\r\n  right: 0;\r\n  width: 20em;\r\n  height: 100%;\r\n  padding: 0px;\r\n  z-index: 1;\r\n  background-color: #44484c;\r\n  overflow-x: hidden;\r\n  transition: 0.5s;\n}\nnav {\r\n  height: 45px;\n}\n.bottom_nav {\r\n  position: relative;\r\n  height: 32px;\r\n  padding: 4px 1px;\r\n  background: #0a6d8c;\r\n  color: white;\n}\n.bottom_nav .text-center i {\r\n  font-size: 19px;\r\n  margin-top: 2px;\n}\n.bottom_nav .date {\r\n  cursor: pointer;\n}\n.bottom_nav .date i, .navbar-brand i {\r\n  color:#f9ad1f;font-size:15px;\n}\n.navbar-brand {\r\n  padding: 0;\n}\n.bottom_nav .clock {\r\n  width: 35px;\r\n  margin: auto;\r\n  background: #0e8cb3;\n}\n.top_text {\r\n  height: 45px;\r\n  background: #1e96bb;\r\n  /* font-family: Rubik; */\r\n  font-size: 18px;\r\n  color: #fff;\r\n  padding-left: 10px;\r\n  padding-top: 10px;\r\n  padding-right: 10px;\n}\n.bottom_nav div.row {\r\n  margin: 0;\n}\n#menu {\r\n  padding-top: 20px;\n}\na {\r\n  text-decoration: none;\n}\n#menu li a,\r\n#menu li {\r\n  color: white;\r\n  padding-bottom: 10px;\n}\n#menu .area li span {\r\n  cursor: pointer;\n}\n#menu .area li span:hover {\r\n  color: #a7a6a6;\n}\n#menu .active a {\r\n  color: #a7a6a6;\r\n  cursor: default;\r\n  text-decoration: none;\n}\ni {\r\n  cursor: pointer;\n}\nli {\r\n  list-style-type: none;\n}\nhr {\r\n  border-top: 1px solid rgba(251, 247, 247, 0.2);\n}\n.clock_card {\r\n  width: 500px;\r\n  margin: 3px auto;\r\n  box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);\r\n  border: none;\n}\n.clock_card p {\r\n  margin-bottom: 5px;\n}\n.card-body {\r\n  padding: 10px;\n}\n.detail_data {\r\n  width: 70px;\r\n  margin: auto;\r\n  color: rgb(73, 144, 226);\n}\n.detail_data i {\r\n  font-size: 40px;\r\n  color: rgb(73, 144, 226);\r\n  cursor:default;\n}\ntable {\r\n  text-align: center;\r\n  width: 600px;\r\n  margin: auto;\r\n  margin-top: 30px;\n}\n.table thead th, .table th, .table td {\r\n  border: none;\n}\n.footer {\r\n  margin-top: 50px;\r\n  padding: 20px;\r\n  color: white;\r\n  background-image: url(/img/epsa_footer_lg-2dc54a1a6a.jpg);\r\n  background-size: cover;\r\n  background-position: center;\n}\n.footer p {\r\n  margin-bottom: 5px;\n}\n@media only screen and (max-width: 600px) {\n.clock_card, table {\r\n    width: 100%;\n}\n.detail_data span:first-child{\r\n    font-size: 30px !important;\n}\n.table th, .table td {\r\n   \r\n    padding-left: 0.05rem;\r\n    padding-right: 0.05rem;\n}\n}\r\n", ""]);
 
 // exports
 
@@ -71796,7 +71947,13 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "bottom_nav" }, [
         _c("div", { staticClass: "row" }, [
-          _vm._m(1),
+          _c("div", { staticClass: "col-4" }, [
+            _c("div", { staticClass: "float-left date" }, [
+              _c("i", { staticClass: "fa fa-caret-left" }),
+              _vm._v(" "),
+              _c("span", [_vm._v(_vm._s(_vm._f("date_format")(_vm.date_left)))])
+            ])
+          ]),
           _vm._v(" "),
           _c("div", { staticClass: "col-4" }, [
             _c("div", { staticClass: "text-center" }, [
@@ -71815,14 +71972,22 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _vm._m(2)
+          _c("div", { staticClass: "col-4" }, [
+            _c("div", { staticClass: "float-right date" }, [
+              _c("span", [
+                _vm._v(_vm._s(_vm._f("date_format")(_vm.date_right)))
+              ]),
+              _vm._v(" "),
+              _c("i", { staticClass: "fa fa-caret-right" })
+            ])
+          ])
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "clearfix" })
       ]),
       _vm._v(" "),
       _vm.clock_flag
-        ? _c("div", { staticClass: "card clock_card" }, [_vm._m(3)])
+        ? _c("div", { staticClass: "card clock_card" }, [_vm._m(1)])
         : _vm._e(),
       _vm._v(" "),
       _c(
@@ -71870,7 +72035,18 @@ var render = function() {
             _vm._v(" "),
             _c("hr"),
             _vm._v(" "),
-            _vm._m(4)
+            _vm.loaded
+              ? _c(
+                  "div",
+                  { staticClass: "area" },
+                  _vm._l(_vm.location, function(item) {
+                    return _c("li", { key: item.locationId }, [
+                      _c("span", [_vm._v(_vm._s(item.name))])
+                    ])
+                  }),
+                  0
+                )
+              : _vm._e()
           ])
         ]
       ),
@@ -71882,7 +72058,7 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _vm._m(5)
+      _vm._m(2)
     ],
     1
   )
@@ -71903,30 +72079,6 @@ var staticRenderFns = [
       ),
       _vm._v(" "),
       _c("span", [_vm._v("Punta del ADCP")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-4" }, [
-      _c("div", { staticClass: "float-left date" }, [
-        _c("i", { staticClass: "fa fa-caret-left" }),
-        _vm._v(" "),
-        _c("span", [_vm._v("27/08")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-4" }, [
-      _c("div", { staticClass: "float-right date" }, [
-        _c("span", [_vm._v("28/08")]),
-        _vm._v(" "),
-        _c("i", { staticClass: "fa fa-caret-right" })
-      ])
     ])
   },
   function() {
@@ -72014,18 +72166,6 @@ var staticRenderFns = [
           ])
         ])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "area" }, [
-      _c("li", [_c("span", [_vm._v("Punta del ADCP")])]),
-      _vm._v(" "),
-      _c("li", [_c("span", [_vm._v("Bocana")])]),
-      _vm._v(" "),
-      _c("li", [_c("span", [_vm._v("Estacion Practicos")])])
     ])
   },
   function() {
@@ -72124,151 +72264,161 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("section", [
-      _c("table", { staticClass: "table" }, [
-        _c("thead", [
-          _c("tr", [
-            _c("th"),
-            _vm._v(" "),
-            _c("th", [_vm._v("Firstname")]),
-            _vm._v(" "),
-            _c("th", [_vm._v("Lastname")]),
-            _vm._v(" "),
-            _c("th", [_vm._v("Email")])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("tbody", [
-          _c("tr", [
-            _c("td", [_vm._v("08:00")]),
-            _vm._v(" "),
-            _c("td", [
-              _c("div", { staticClass: "detail_data" }, [
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-4" }, [
-                    _c("i", { staticClass: "fa fa-arrow-circle-up arrow" })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-8" }, [
-                    _c("div", [_vm._v("298º")]),
-                    _vm._v(" "),
-                    _c("div", { staticStyle: { "margin-top": "-5px" } }, [
-                      _vm._v("w")
-                    ])
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("td", [
-              _c("div", { staticClass: "detail_data" }, [
-                _c("div", { staticClass: "row" }, [
-                  _c(
-                    "div",
-                    {
-                      staticClass: "col-12",
-                      staticStyle: { padding: "0", "margin-top": "-5px" }
-                    },
-                    [
-                      _c("span", { staticStyle: { "font-size": "35px" } }, [
-                        _vm._v("11.9")
-                      ]),
-                      _vm._v(" "),
-                      _c("span", { staticStyle: { "vertical-align": "top" } }, [
-                        _vm._v("m")
-                      ])
-                    ]
-                  )
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("td", [
-              _c("div", { staticClass: "detail_data" }, [
-                _c("div", { staticClass: "row" }, [
-                  _c(
-                    "div",
-                    {
-                      staticClass: "col-12",
-                      staticStyle: { padding: "0", "margin-top": "-5px" }
-                    },
-                    [
-                      _c("span", { staticStyle: { "font-size": "35px" } }, [
-                        _vm._v("12.1")
-                      ]),
-                      _vm._v(" "),
-                      _c("span", { staticStyle: { "vertical-align": "top" } }, [
-                        _vm._v("s")
-                      ])
-                    ]
-                  )
-                ])
-              ])
+      _c("div", { staticClass: "table-responsive" }, [
+        _c("table", { staticClass: "table" }, [
+          _c("thead", [
+            _c("tr", [
+              _c("th"),
+              _vm._v(" "),
+              _c("th", [_vm._v("Firstname")]),
+              _vm._v(" "),
+              _c("th", [_vm._v("Lastname")]),
+              _vm._v(" "),
+              _c("th", [_vm._v("Email")])
             ])
           ]),
           _vm._v(" "),
-          _c("tr", [
-            _c("td", [_vm._v("11:00")]),
-            _vm._v(" "),
-            _c("td", [
-              _c("div", { staticClass: "detail_data" }, [
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-4" }, [
-                    _c("i", { staticClass: "fa fa-arrow-circle-up arrow" })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-8" }, [
-                    _c("div", [_vm._v("298º")]),
+          _c("tbody", [
+            _c("tr", [
+              _c("td", [_vm._v("08:00")]),
+              _vm._v(" "),
+              _c("td", [
+                _c("div", { staticClass: "detail_data" }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-4" }, [
+                      _c("i", { staticClass: "fa fa-arrow-circle-up arrow" })
+                    ]),
                     _vm._v(" "),
-                    _c("div", { staticStyle: { "margin-top": "-5px" } }, [
-                      _vm._v("w")
+                    _c("div", { staticClass: "col-8" }, [
+                      _c("div", [_vm._v("298º")]),
+                      _vm._v(" "),
+                      _c("div", { staticStyle: { "margin-top": "-5px" } }, [
+                        _vm._v("w")
+                      ])
                     ])
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("td", [
+                _c("div", { staticClass: "detail_data" }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "col-12",
+                        staticStyle: { padding: "0", "margin-top": "-5px" }
+                      },
+                      [
+                        _c("span", { staticStyle: { "font-size": "35px" } }, [
+                          _vm._v("11.9")
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          { staticStyle: { "vertical-align": "top" } },
+                          [_vm._v("m")]
+                        )
+                      ]
+                    )
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("td", [
+                _c("div", { staticClass: "detail_data" }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "col-12",
+                        staticStyle: { padding: "0", "margin-top": "-5px" }
+                      },
+                      [
+                        _c("span", { staticStyle: { "font-size": "35px" } }, [
+                          _vm._v("12.1")
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          { staticStyle: { "vertical-align": "top" } },
+                          [_vm._v("s")]
+                        )
+                      ]
+                    )
                   ])
                 ])
               ])
             ]),
             _vm._v(" "),
-            _c("td", [
-              _c("div", { staticClass: "detail_data" }, [
-                _c("div", { staticClass: "row" }, [
-                  _c(
-                    "div",
-                    {
-                      staticClass: "col-12",
-                      staticStyle: { padding: "0", "margin-top": "-5px" }
-                    },
-                    [
-                      _c("span", { staticStyle: { "font-size": "35px" } }, [
-                        _vm._v("11.9")
-                      ]),
+            _c("tr", [
+              _c("td", [_vm._v("11:00")]),
+              _vm._v(" "),
+              _c("td", [
+                _c("div", { staticClass: "detail_data" }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-4" }, [
+                      _c("i", { staticClass: "fa fa-arrow-circle-up arrow" })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-8" }, [
+                      _c("div", [_vm._v("298º")]),
                       _vm._v(" "),
-                      _c("span", { staticStyle: { "vertical-align": "top" } }, [
-                        _vm._v("m")
+                      _c("div", { staticStyle: { "margin-top": "-5px" } }, [
+                        _vm._v("w")
                       ])
-                    ]
-                  )
+                    ])
+                  ])
                 ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("td", [
-              _c("div", { staticClass: "detail_data" }, [
-                _c("div", { staticClass: "row" }, [
-                  _c(
-                    "div",
-                    {
-                      staticClass: "col-12",
-                      staticStyle: { padding: "0", "margin-top": "-5px" }
-                    },
-                    [
-                      _c("span", { staticStyle: { "font-size": "35px" } }, [
-                        _vm._v("12.1")
-                      ]),
-                      _vm._v(" "),
-                      _c("span", { staticStyle: { "vertical-align": "top" } }, [
-                        _vm._v("s")
-                      ])
-                    ]
-                  )
+              ]),
+              _vm._v(" "),
+              _c("td", [
+                _c("div", { staticClass: "detail_data" }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "col-12",
+                        staticStyle: { padding: "0", "margin-top": "-5px" }
+                      },
+                      [
+                        _c("span", { staticStyle: { "font-size": "35px" } }, [
+                          _vm._v("11.9")
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          { staticStyle: { "vertical-align": "top" } },
+                          [_vm._v("m")]
+                        )
+                      ]
+                    )
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("td", [
+                _c("div", { staticClass: "detail_data" }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "col-12",
+                        staticStyle: { padding: "0", "margin-top": "-5px" }
+                      },
+                      [
+                        _c("span", { staticStyle: { "font-size": "35px" } }, [
+                          _vm._v("12.1")
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          { staticStyle: { "vertical-align": "top" } },
+                          [_vm._v("s")]
+                        )
+                      ]
+                    )
+                  ])
                 ])
               ])
             ])
@@ -72392,103 +72542,109 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("section", [
-      _c("table", { staticClass: "table" }, [
-        _c("thead", [
-          _c("tr", [
-            _c("th"),
-            _vm._v(" "),
-            _c("th", [_vm._v("Firstname")]),
-            _vm._v(" "),
-            _c("th", [_vm._v("Lastname")])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("tbody", [
-          _c("tr", [
-            _c("td", [_vm._v("08:00")]),
-            _vm._v(" "),
-            _c("td", [
-              _c("div", { staticClass: "detail_data" }, [
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-4" }, [
-                    _c("i", { staticClass: "fa fa-arrow-circle-up arrow" })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-8" }, [
-                    _c("div", [_vm._v("298º")]),
-                    _vm._v(" "),
-                    _c("div", { staticStyle: { "margin-top": "-5px" } }, [
-                      _vm._v("w")
-                    ])
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("td", [
-              _c("div", { staticClass: "detail_data" }, [
-                _c("div", { staticClass: "row" }, [
-                  _c(
-                    "div",
-                    {
-                      staticClass: "col-12",
-                      staticStyle: { padding: "0", "margin-top": "-5px" }
-                    },
-                    [
-                      _c("span", { staticStyle: { "font-size": "35px" } }, [
-                        _vm._v("11.9")
-                      ]),
-                      _vm._v(" "),
-                      _c("span", { staticStyle: { "vertical-align": "top" } }, [
-                        _vm._v("m")
-                      ])
-                    ]
-                  )
-                ])
-              ])
+      _c("div", { staticClass: "table-responsive" }, [
+        _c("table", { staticClass: "table" }, [
+          _c("thead", [
+            _c("tr", [
+              _c("th"),
+              _vm._v(" "),
+              _c("th", [_vm._v("Firstname")]),
+              _vm._v(" "),
+              _c("th", [_vm._v("Lastname")])
             ])
           ]),
           _vm._v(" "),
-          _c("tr", [
-            _c("td", [_vm._v("11:00")]),
-            _vm._v(" "),
-            _c("td", [
-              _c("div", { staticClass: "detail_data" }, [
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-4" }, [
-                    _c("i", { staticClass: "fa fa-arrow-circle-up arrow" })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-8" }, [
-                    _c("div", [_vm._v("298º")]),
+          _c("tbody", [
+            _c("tr", [
+              _c("td", [_vm._v("08:00")]),
+              _vm._v(" "),
+              _c("td", [
+                _c("div", { staticClass: "detail_data" }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-4" }, [
+                      _c("i", { staticClass: "fa fa-arrow-circle-up arrow" })
+                    ]),
                     _vm._v(" "),
-                    _c("div", { staticStyle: { "margin-top": "-5px" } }, [
-                      _vm._v("w")
+                    _c("div", { staticClass: "col-8" }, [
+                      _c("div", [_vm._v("298º")]),
+                      _vm._v(" "),
+                      _c("div", { staticStyle: { "margin-top": "-5px" } }, [
+                        _vm._v("w")
+                      ])
                     ])
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("td", [
+                _c("div", { staticClass: "detail_data" }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "col-12",
+                        staticStyle: { padding: "0", "margin-top": "-5px" }
+                      },
+                      [
+                        _c("span", { staticStyle: { "font-size": "35px" } }, [
+                          _vm._v("11.9")
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          { staticStyle: { "vertical-align": "top" } },
+                          [_vm._v("m")]
+                        )
+                      ]
+                    )
                   ])
                 ])
               ])
             ]),
             _vm._v(" "),
-            _c("td", [
-              _c("div", { staticClass: "detail_data" }, [
-                _c("div", { staticClass: "row" }, [
-                  _c(
-                    "div",
-                    {
-                      staticClass: "col-12",
-                      staticStyle: { padding: "0", "margin-top": "-5px" }
-                    },
-                    [
-                      _c("span", { staticStyle: { "font-size": "35px" } }, [
-                        _vm._v("11.9")
-                      ]),
+            _c("tr", [
+              _c("td", [_vm._v("11:00")]),
+              _vm._v(" "),
+              _c("td", [
+                _c("div", { staticClass: "detail_data" }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-4" }, [
+                      _c("i", { staticClass: "fa fa-arrow-circle-up arrow" })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-8" }, [
+                      _c("div", [_vm._v("298º")]),
                       _vm._v(" "),
-                      _c("span", { staticStyle: { "vertical-align": "top" } }, [
-                        _vm._v("kn")
+                      _c("div", { staticStyle: { "margin-top": "-5px" } }, [
+                        _vm._v("w")
                       ])
-                    ]
-                  )
+                    ])
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("td", [
+                _c("div", { staticClass: "detail_data" }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "col-12",
+                        staticStyle: { padding: "0", "margin-top": "-5px" }
+                      },
+                      [
+                        _c("span", { staticStyle: { "font-size": "35px" } }, [
+                          _vm._v("11.9")
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          { staticStyle: { "vertical-align": "top" } },
+                          [_vm._v("kn")]
+                        )
+                      ]
+                    )
+                  ])
                 ])
               ])
             ])

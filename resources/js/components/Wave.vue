@@ -1,91 +1,93 @@
 <template>
     <div class="container">
       <section>
-        <table class="table">
-          <thead>
-            <tr>
-              <th></th>
-              <th>Firstname</th>
-              <th>Lastname</th>
-              <th>Email</th>
-            </tr>
-          </thead>
-          <tbody>
-            
-            <tr>
-              <td>08:00</td>
-              <td>
-                <div class="detail_data">
-                  <div class="row">
-                    <div class="col-4">
-                      <i class="fa fa-arrow-circle-up arrow"></i>
-                    </div>
-                    <div class="col-8">
-                      <div>298º</div>
-                      <div style="margin-top: -5px;">w</div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-              <td>
-                <div class="detail_data">
-                  <div class="row">
-                    <div class="col-12" style="padding:0;margin-top:-5px;">
-                      <span style="font-size:35px;">11.9</span>
-                      <span style="vertical-align: top;">m</span>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Email</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+              <tr>
+                <td>08:00</td>
+                <td>
+                  <div class="detail_data">
+                    <div class="row">
+                      <div class="col-4">
+                        <i class="fa fa-arrow-circle-up arrow"></i>
+                      </div>
+                      <div class="col-8">
+                        <div>298º</div>
+                        <div style="margin-top: -5px;">w</div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </td>
-              <td>
-                <div class="detail_data">
-                  <div class="row">
-                    <div class="col-12" style="padding:0;margin-top:-5px;">
-                      <span style="font-size:35px;">12.1</span>
-                      <span style="vertical-align: top;">s</span>
+                </td>
+                <td>
+                  <div class="detail_data">
+                    <div class="row">
+                      <div class="col-12" style="padding:0;margin-top:-5px;">
+                        <span style="font-size:35px;">11.9</span>
+                        <span style="vertical-align: top;">m</span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>11:00</td>
-              <td>
-                <div class="detail_data">
-                  <div class="row">
-                    <div class="col-4">
-                      <i class="fa fa-arrow-circle-up arrow"></i>
-                    </div>
-                    <div class="col-8">
-                      <div>298º</div>
-                      <div style="margin-top: -5px;">w</div>
+                </td>
+                <td>
+                  <div class="detail_data">
+                    <div class="row">
+                      <div class="col-12" style="padding:0;margin-top:-5px;">
+                        <span style="font-size:35px;">12.1</span>
+                        <span style="vertical-align: top;">s</span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </td>
-              <td>
-                <div class="detail_data">
-                  <div class="row">
-                    <div class="col-12" style="padding:0;margin-top:-5px;">
-                      <span style="font-size:35px;">11.9</span>
-                      <span style="vertical-align: top;">m</span>
+                </td>
+              </tr>
+              <tr>
+                <td>11:00</td>
+                <td>
+                  <div class="detail_data">
+                    <div class="row">
+                      <div class="col-4">
+                        <i class="fa fa-arrow-circle-up arrow"></i>
+                      </div>
+                      <div class="col-8">
+                        <div>298º</div>
+                        <div style="margin-top: -5px;">w</div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </td>
-              <td>
-                <div class="detail_data">
-                  <div class="row">
-                    <div class="col-12" style="padding:0;margin-top:-5px;">
-                      <span style="font-size:35px;">12.1</span>
-                      <span style="vertical-align: top;">s</span>
+                </td>
+                <td>
+                  <div class="detail_data">
+                    <div class="row">
+                      <div class="col-12" style="padding:0;margin-top:-5px;">
+                        <span style="font-size:35px;">11.9</span>
+                        <span style="vertical-align: top;">m</span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </td>
-            </tr>            
-          </tbody>
-        </table>
+                </td>
+                <td>
+                  <div class="detail_data">
+                    <div class="row">
+                      <div class="col-12" style="padding:0;margin-top:-5px;">
+                        <span style="font-size:35px;">12.1</span>
+                        <span style="vertical-align: top;">s</span>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>            
+            </tbody>
+          </table>
+        </div>
       </section>
       <section>
         <div class="row">
@@ -141,6 +143,11 @@ import LineChart from '../chart';
             return{
                 loaded: false,
                 normal_options: {
+                      elements: {
+                        point:{
+                            radius: 0
+                        }
+                    },
                     legend: {
                         display: false,
                         labels: {
@@ -149,23 +156,31 @@ import LineChart from '../chart';
                     },
                     scales: {
                         yAxes: [{
-                        ticks: {
-                            beginAtZero:true,
-                            fontSize: 15,
-                            // max: 50
-                        }
+                          ticks: {
+                              beginAtZero:true,
+                              fontSize: 15,
+                              // max: 50
+                          },
+                          // gridLines: {
+                          //     zeroLineColor: 'red'
+                          // }
                         }],
                         xAxes: [{
-                        ticks: {
-                            beginAtZero:true,
-                            fontSize: 15
-                        }
+                          ticks: {
+                              beginAtZero:true,
+                              fontSize: 15
+                          },                          
                         }]
                     },
                     maintainAspectRatio: false,
                     responsive: true,
                 },
                 multi_options: {
+                      elements: {
+                        point:{
+                            radius: 0
+                        }
+                    },
                     legend: {
                         display: false,
                         labels: {
@@ -173,13 +188,55 @@ import LineChart from '../chart';
                         }
                     },
                     scales: {
-                        yAxes: [{
-                        ticks: {
-                            beginAtZero:true,
-                            fontSize: 15,
-                            // max: 50
-                        }
-                        }],
+                        yAxes: [
+                          {
+                            id: 'A',
+                            // type: 'linear',
+                            position: 'left',
+                            ticks: {
+                              min: 0
+                            }
+                          }, {
+                            id: 'B',
+                            // type: 'linear',
+                            position: 'right',
+                            ticks: {
+                              min: 0
+                            },
+                            gridLines: {
+                              display: false,
+                            }
+                          }, {
+                            id: 'C',
+                            // type: 'linear',
+                            position: 'left',
+                            ticks: {
+                              min: 0,
+                              display:false,
+                            },
+                            gridLines: {
+                              drawBorder: false,
+                              display: false,
+                            },
+                          }, {
+                            id: 'D',
+                            // type: 'linear',
+                            position: 'left',
+                            ticks: {
+                              min: 0,
+                              display:false,
+                            },
+                            gridLines: {
+                              drawBorder: false,
+                              display: false,
+                            },
+                          }
+                          // scaleLabel: {
+                          //   display: true,
+                          //   labelString: 'probability',
+                          //   lineHeight: 2,
+                          // }
+                        ],
                         xAxes: [{
                         ticks: {
                             beginAtZero:true,
@@ -193,58 +250,108 @@ import LineChart from '../chart';
                 chartdata_normal: null,
                 chartdata_multi: null,
                 chart_data_normal: [],
-                chart_data_multi: [],
+                chart_data_multi_left: [],
+                chart_data_multi_right: [],
                 chart_labels_normal: [],
-                chart_labels_multi: [],
+                // chart_labels_multi: [],
                 base_url: '',
                 uri: '',
+                all_data: [],
             }
         },
         methods: {
             init: function() {
                 this.loaded = true;
-                let currentObject = this;
-                this.uri = this.base_url + '';
-                // try {
-                //     this.axios.get(this.uri).then(response => {
-                //         if(Object.keys(response.data).length > 0){
-                //             this.tweet_counter = response.data.tweet_counter;
-                //             this.today_count = response.data.today_count;
-                //             this.user_count = response.data.user_count;
-                //             this.first_date = response.data.key_array[0];
-                //             this.last_date = response.data.key_array[6];
-                //             this.chart_labels = response.data.key_array;
-                //             this.chart_data = response.data.tweet_number;
-                //             this.chartdata = {
-                //                 labels: this.chart_labels,
-                //                 datasets: [{
-                //                     backgroundColor: "#50aa5b",
-                //                     data: this.chart_data,
-                //                     fill: true,
-                //                     borderWidth: 1,
-                //                     borderColor: 'rgba(255,99,132,1)',
-                //                 }],
-                //             }
-                //             this.loaded = true;
-                //             this.flag = true;
-                //         }
-                //     }).catch(function (error) {
-                //         if(error != ''){
-                //             currentObject.flag = true;
-                //         }
+                let currentObject = this;                
+                try {
+                    this.axios.get(this.uri).then(res => {
+                        if(Object.keys(res.data).length > 0){
+                            console.log(res.data.data);
+                            this.all_data = res.data.data;
+                            for (let i = 0; i < this.all_data.length; i++) {
+
+                              if(this.all_data[i].nameId == 'dir'){
+                                this.chart_labels_normal.push(this.date_format(this.all_data[i].localDate));
+                                this.chart_data_normal.push(this.all_data[i].value);                                
+                              }
+                              if(this.all_data[i].nameId == 'hm0'){
+                                this.chart_data_multi_left.push(this.all_data[i].value);
+                              }
+                              if(this.all_data[i].nameId == 'tp'){
+                                this.chart_data_multi_right.push(this.all_data[i].value);
+                              }
+                              
+                            }
+                            console.log(this.chart_data_multi_left);
+                            this.chartdata_normal = {
+                              labels: this.chart_labels_normal,
+                              datasets: [{
+                                  backgroundColor: "red",
+                                  label: 'dir',
+                                  data: this.chart_data_normal,
+                                  fill: false,
+                                  borderWidth: 3,
+                                  borderColor: 'rgba(255,99,132,1)',
+                              }],
+                            };
+                            this.chartdata_multi = {
+                              labels: this.chart_labels_normal,
+                              datasets: [{
+                                label: 'hm0',
+                                yAxisID: 'A',
+                                data: this.chart_data_multi_left,
+                                fill: false,
+                                borderWidth: 3,
+                                borderColor: '#dc5c0d',
+                              }, {
+                                label: 'tp',
+                                yAxisID: 'B',
+                                data: this.chart_data_multi_right,
+                                fill: false,
+                                borderWidth: 3,
+                                borderColor: '#247ade',
+                              }, {
+                                label: 'tp',
+                                yAxisID: 'A',
+                                data: [0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5],
+                                fill: false,
+                                borderWidth: 3,
+                                borderColor: '#247ade',
+                              }, {
+                                label: 'tp',
+                                yAxisID: 'A',
+                                data: [3.5,3.5,3.5,3.5,3.5,3.5,3.5,3.5,3.5,3.5,3.5],
+                                fill: false,
+                                borderWidth: 3,
+                                borderColor: '#247ade',
+                              }]
+                            };
+                            this.loaded = true;
+                        }
+                    }).catch(function (error) {
+                        if(error != ''){
+                        }
                         
-                //     })
-                //     .finally(function () {
-                //         // always executed
-                //     });
-                // } catch (e) {
-                // console.error(e)
-                // }
+                    })
+                    .finally(function () {
+                        // always executed
+                    });
+                } catch (e) {
+                console.error(e)
+                }
+            },
+            date_format: function(value){
+              if (!value) return '';
+              let date = [];
+              date = value.split(' ')[1];
+              date = date.split(':');
+              return date[0] + 'h';
             }
         },
         async mounted () {
             this.loaded = false;
             this.base_url = document.getElementById('base_url').value;
+            this.uri = this.base_url + 'api/init_wave';
             this.init();
         },
         components: {

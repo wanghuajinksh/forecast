@@ -14,6 +14,6 @@ class Location extends Model
 
     public function measures()
     {
-        return hasMany('App\Measure', 'locationId', 'locationId');
+        return $this->hasMany('App\Measure', 'locationId', 'locationId');
     }
 }
