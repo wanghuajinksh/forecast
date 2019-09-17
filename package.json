@@ -22,5 +22,11 @@
         "sass-loader": "7.*",
         "vue": "^2.5.17",
         "vue-template-compiler": "^2.6.10"
+    },
+    "dependencies": {
+        "mdbvue": "^5.8.2",
+        "vue-axios": "^2.1.4",
+        "vue-chartjs": "^3.4.2",
+        "vue-router": "^3.1.3"
     }
 }
