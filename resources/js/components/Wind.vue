@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container custom_container">
       <section>
         <div class="table-responsive">
           <table class="table">
@@ -72,10 +72,13 @@
         <div class="row">
           <div class="col-12">
             <div style="position:relative;">
-                <line-chart
-                    v-if="loaded"
-                    :chart-data="chartdata"
-                    :options="options" :height="280"/>
+                <apex-chart
+                  v-if="loaded"
+                  height=280
+                  type=line
+                  :options="options"
+                  :series="chartdata"
+                ></apex-chart>
             </div>
           </div>
         </div>
@@ -108,54 +111,146 @@
 </template>
 
 <script>
-import LineChart from '../chart';
+import VueApexCharts from 'vue-apexcharts';
     export default {
         data() {
             return{
                 loaded: false,
-                options: {
-                    legend: {
-                        display: false,
-                        labels: {
-                            display: false
-                        }
-                    },
-                    scales: {
-                        yAxes: [{
-                        ticks: {
-                            beginAtZero:true,
-                            fontSize: 15,
-                            // max: 50
-                        }
-                        }],
-                        xAxes: [{
-                        ticks: {
-                            beginAtZero:true,
-                            fontSize: 15
-                        }
-                        }]
-                    },
-                    maintainAspectRatio: false,
-                    responsive: true,
-                },
-                chartdata: null,
+                all_data: [],
+                options: {},
+                chartdata: [],
                 chart_data: [],
                 chart_labels: [],
+                wind_dir: [],
+                base_url: '',
+                uri: '',
             }
         },
         methods: {
             init: function() {
-                this.loaded = true;
-            }
+                try{
+                    this.axios.get(this.uri).then(res => {
+                        if(Object.keys(res.data).length > 0){
+                          console.log(res.data.data);
+                          this.all_data = res.data.data;
+                          for (let i = 0; i < this.all_data.length; i++) {
+                            if(this.all_data[i].nameId == 'windmag'){
+                              this.chart_labels.push(this.date_format(this.all_data[i].localDate));
+                              this.chart_data.push(this.all_data[i].value);                                
+                            }
+                            if(this.all_data[i].nameId == 'winddir'){
+                              this.wind_dir.push(this.all_data[i].value);
+                            }
+                          }
+
+                          this.options = {
+                            yaxis: {
+                              show: true,
+                              showAlways: true,
+                              axisBorder: {
+                                show: true,
+                                color: '#78909C',
+                                offsetX: 0,
+                                offsetY: 0
+                              },
+                              axisTicks: {
+                                show: true,
+                                borderType: 'solid',
+                                color: '#78909C',
+                                width: 6,
+                                offsetX: 0,
+                                offsetY: 0
+                              },
+                            },
+                            grid: {
+                              show: true,
+                              xaxis: {
+                                  lines: {
+                                      show: true
+                                  }
+                              },   
+                              yaxis: {
+                                  lines: {
+                                      show: true
+                                  }
+                              },
+                            },
+                            chart: {
+                              toolbar:{
+                                show:false,
+                              }
+                            },
+                              animations: {
+                                enabled: true,
+                                easing: 'linear',
+                                dynamicAnimation: {
+                                    speed: 1000
+                                }
+                            },
+                            colors: ["#96b200"],
+                            stroke: {
+                                show: true,
+                                curve: ['smooth'],
+                                lineCap: 'square',
+                                colors: ['#96b200'],
+                                width: 4,
+                                dashArray: 0,      
+                            },
+                            xaxis: {
+                              categories: this.chart_labels,
+                              labels: {
+                                show: false,
+                              },
+                              axisTicks: {
+                                show: false,
+                              }
+                            }
+                          }
+                          this.chartdata = [
+                            {
+                              name: 'Magnitud del viento',
+                              data: this.chart_data
+                            }
+                          ];
+                          this.loaded = true;
+                        }
+                      }
+                    )
+                }
+                catch{
+
+                }
+            },
+            date_format: function(value){
+              if (!value) return '';
+              let date = [];
+              date = value.split(' ')[1];
+              date = date.split(':');
+              return date[0] + 'h';
+            },
         },
         async mounted () {
             this.loaded = false;
-            this.flag = false;
-
+            this.base_url = document.getElementById('base_url').value;
+            this.uri = this.base_url + 'api/init_wave';
             this.init();
         },
         components: {
-            lineChart: LineChart,
+            apexChart: VueApexCharts
         }
     }
 </script>
+
+<style scoped>
+  @media (min-width: 1200px){
+    .custom_container {
+        max-width: 720px;
+    }
+
+  }
+  @media (min-width: 992px){
+    .custom_container {
+        max-width: 720px;
+    }
+  }
+</style>

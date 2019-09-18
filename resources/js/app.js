@@ -11,6 +11,7 @@ import axios from 'axios';
 import Routes from './routes.js';
 import VueAxios from 'vue-axios'; 
 import App from './components/App.vue';
+
 Vue.use(VueAxios, axios);
 
 /**

@@ -92,18 +92,22 @@
       <section>
         <div class="row">
           <div class="col-md-6">
-            <div style="position:relative;">
-                <line-chart
-                    v-if="loaded"
-                    :chart-data="chartdata_normal"
-                    :options="normal_options" :height="280"/>
-            </div>
+              <apex-chart
+                v-if="loaded"
+                height=280
+                type=line
+                :options="normal_options"
+                :series="chartdata_normal"
+              ></apex-chart>
           </div>
           <div class="col-md-6">
-            <line-chart
-                v-if="loaded"
-                :chart-data="chartdata_multi"
-                :options="multi_options" :height="280"/>
+                <apex-chart
+                  v-if="loaded"
+                  height=280
+                  type=line
+                  :options="multi_options"
+                  :series="chartdata_multi"
+                ></apex-chart>
           </div>
         </div>
       </section>
@@ -137,119 +141,19 @@
 </template>
 
 <script>
-import LineChart from '../chart';
+import VueApexCharts from 'vue-apexcharts';
     export default {
         data() {
             return{
                 loaded: false,
-                normal_options: {
-                      elements: {
-                        point:{
-                            radius: 0
-                        }
-                    },
-                    legend: {
-                        display: false,
-                        labels: {
-                            display: false
-                        }
-                    },
-                    scales: {
-                        yAxes: [{
-                          ticks: {
-                              beginAtZero:true,
-                              fontSize: 15,
-                              // max: 50
-                          },
-                          // gridLines: {
-                          //     zeroLineColor: 'red'
-                          // }
-                        }],
-                        xAxes: [{
-                          ticks: {
-                              beginAtZero:true,
-                              fontSize: 15
-                          },                          
-                        }]
-                    },
-                    maintainAspectRatio: false,
-                    responsive: true,
-                },
-                multi_options: {
-                      elements: {
-                        point:{
-                            radius: 0
-                        }
-                    },
-                    legend: {
-                        display: false,
-                        labels: {
-                            display: false
-                        }
-                    },
-                    scales: {
-                        yAxes: [
-                          {
-                            id: 'A',
-                            // type: 'linear',
-                            position: 'left',
-                            ticks: {
-                              min: 0
-                            }
-                          }, {
-                            id: 'B',
-                            // type: 'linear',
-                            position: 'right',
-                            ticks: {
-                              min: 0
-                            },
-                            gridLines: {
-                              display: false,
-                            }
-                          }, {
-                            id: 'C',
-                            type: 'linear',
-                            position: 'left',
-                            ticks: {
-                              min: 0,
-                              display:false,
-                            },
-                            gridLines: {
-                              drawBorder: false,
-                              display: false,
-                            },
-                          }, {
-                            id: 'D',
-                            type: 'linear',
-                            position: 'left',
-                            ticks: {
-                              min: 0,
-                              display:false,
-                            },
-                            gridLines: {
-                              drawBorder: false,
-                              display: false,
-                            },
-                          }  
-                         
-                        ],
-                        xAxes: [{
-                          ticks: {
-                              beginAtZero:true,
-                              fontSize: 15
-                          }
-                        }]
-                    },
-                    maintainAspectRatio: false,
-                    responsive: true,
-                },
-                chartdata_normal: null,
-                chartdata_multi: null,
+                normal_options: {},
+                multi_options: {},
+                chartdata_multi: [],
+                chartdata_normal:[],
                 chart_data_normal: [],
                 chart_data_multi_left: [],
                 chart_data_multi_right: [],
                 chart_labels_normal: [],
-                // chart_labels_multi: [],
                 base_url: '',
                 uri: '',
                 all_data: [],
@@ -257,7 +161,6 @@ import LineChart from '../chart';
         },
         methods: {
             init: function() {
-                this.loaded = true;
                 let currentObject = this;                
                 try {
                     this.axios.get(this.uri).then(res => {
@@ -286,51 +189,168 @@ import LineChart from '../chart';
                             max_data.fill(Math.max.apply(null, this.chart_data_multi_left));
                             min_data.fill(Math.min.apply(null, this.chart_data_multi_left));
 
-                            this.chartdata_normal = {
-                              labels: this.chart_labels_normal,
-                              datasets: [{
-                                  backgroundColor: "red",
-                                  label: 'dir',
-                                  data: this.chart_data_normal,
-                                  fill: false,
-                                  borderWidth: 3,
-                                  borderColor: 'rgba(255,99,132,1)',
-                              }],
-                            };
-                            this.chartdata_multi = {
-                              labels: this.chart_labels_normal,
-                              
-                              datasets: [{
-                                label: 'hm0',
-                                yAxisID: 'A',
-                                data: this.chart_data_multi_left,
-                                fill: false,
-                                borderWidth: 3,
-                                borderColor: '#247ade',
-                              }, {
-                                label: 'tp',
-                                yAxisID: 'B',
-                                data: this.chart_data_multi_right,
-                                fill: false,
-                                borderWidth: 3,
-                                borderColor: '#dc5c0d',
-                              }, {
-                                label: 'max',
-                                yAxisID: 'A',
-                                data: max_data,
-                                fill: false,
-                                borderWidth: 1,
-                                borderColor: '#dc5c0d',
-                              }, {
-                                label: 'min',
-                                yAxisID: 'A',
-                                data: min_data,
-                                fill: false,
-                                borderWidth: 1,
-                                borderColor: '#41c53a',
-                              }]
-                              
-                            };
+                            this.normal_options = {
+                              yaxis: {
+                                show: true,
+                                showAlways: true,
+                                axisBorder: {
+                                  show: true,
+                                  color: '#78909C',
+                                  offsetX: 0,
+                                  offsetY: 0
+                              },
+                                axisTicks: {
+                                  show: true,
+                                  borderType: 'solid',
+                                  color: '#78909C',
+                                  width: 6,
+                                  offsetX: 0,
+                                  offsetY: 0
+                              },
+                              },
+                              grid: {
+                                show: true,
+                                xaxis: {
+                                    lines: {
+                                        show: true
+                                    }
+                                },   
+                                yaxis: {
+                                    lines: {
+                                        show: true
+                                    }
+                                },
+                              },
+                              chart: {
+                                toolbar:{
+                                  show:false,
+                                }
+                              },
+                               animations: {
+                                  enabled: true,
+                                  easing: 'linear',
+                                  dynamicAnimation: {
+                                      speed: 1000
+                                  }
+                              },
+                              colors: ["#e3342f"],
+                              stroke: {
+                                  show: true,
+                                  curve: ['smooth'],
+                                  lineCap: 'square',
+                                  colors: ['#e3342f'],
+                                  width: 4,
+                                  dashArray: 0,      
+                              },
+                              xaxis: {
+                                categories: this.chart_labels_normal,
+                              }
+                            }
+                            this.chartdata_normal = [
+                              {
+                                name: 'dir',
+                                data: this.chart_data_normal
+                              }
+                            ];
+
+                            this.multi_options = {
+                              annotations: {
+                                yaxis: [
+                                  {
+                                    y: Math.min.apply(null, this.chart_data_multi_left),
+                                    borderColor: "#00a96c",
+                                    strokeDashArray: 0,
+                                  },
+                                  {
+                                    y: Math.max.apply(null, this.chart_data_multi_left),
+                                    borderColor: "#fb0707",
+                                    strokeDashArray: 0,
+                                  },
+                                ], 
+                              },
+                              yaxis: [
+                                {
+                                  axisTicks: {
+                                    show: true
+                                  },
+                                  axisBorder: {
+                                    show: true,
+                                    color: "#0269e0"
+                                  },
+                                  labels: {
+                                    style: {
+                                      color: "#000"
+                                    }
+                                  },
+                                },
+                                {
+                                  opposite: true,
+                                  axisTicks: {
+                                    show: true
+                                  },
+                                  axisBorder: {
+                                    show: true,
+                                    color: "#f98d02"
+                                  },
+                                  labels: {
+                                    style: {
+                                      color: "#000"
+                                    }
+                                  },
+                                }
+                              ],
+                              legend: {
+                                show: false,
+                              },
+                              colors: ["#0269e0", "#f98d02"],
+                              grid: {
+                                show: true,
+                                xaxis: {
+                                    lines: {
+                                        show: true
+                                    }
+                                },   
+                                yaxis: {
+                                    lines: {
+                                        show: true
+                                    }
+                                },
+                              },
+                              chart: {
+                                toolbar:{
+                                  show:false,
+                                }
+                              },
+                               animations: {
+                                  enabled: true,
+                                  easing: 'linear',
+                                  dynamicAnimation: {
+                                      speed: 1000
+                                  }
+                              },
+                              stroke: {
+                                  show: true,
+                                  curve: ['smooth','smooth'],
+                                  // lineCap: 'square',
+                                  colors: ['#0269e0','#f98d02'],
+                                  width: [4,4],
+                                  // dashArray: 0,      
+                              },
+                              xaxis: {
+                                categories: this.chart_labels_normal,
+                              }
+                            }
+                            console.log(this.chart_data_multi_left);
+                            this.chartdata_multi = [
+                              {
+                                name: "hm0",
+                                data: this.chart_data_multi_left
+                              },
+                              {
+                                name: "tp",
+                                data: this.chart_data_multi_right
+                              }
+                            ];
                             this.loaded = true;
                         }
                     }).catch(function (error) {
@@ -374,7 +394,9 @@ import LineChart from '../chart';
             this.init();
         },
         components: {
-            lineChart: LineChart,
+            apexChart: VueApexCharts
         }
     }
 </script>
+
+
