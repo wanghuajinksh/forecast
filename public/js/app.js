@@ -40396,7 +40396,6 @@ var render = function() {
         _c("div", { staticClass: "col-12" }, [
           _c(
             "div",
-            { staticStyle: { position: "relative" } },
             [
               _vm.loaded
                 ? _c("apex-chart", {

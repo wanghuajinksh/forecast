@@ -71,7 +71,7 @@
       <section>
         <div class="row">
           <div class="col-12">
-            <div style="position:relative;">
+            <div>
                 <apex-chart
                   v-if="loaded"
                   height=280
