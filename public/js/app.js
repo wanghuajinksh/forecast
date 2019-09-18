@@ -2638,6 +2638,38 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -7246,7 +7278,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.display_none {\r\n  display: none;\n}\nsection {\r\n  margin-top: 50px;\n}\n.slide-enter {\r\n  opacity: 0;\n}\n.slide-enter-active {\r\n  -webkit-animation: slide-in 0.5s ease-out forwards;\r\n          animation: slide-in 0.5s ease-out forwards;\r\n  transition: opacity 0.5s;\n}\r\n/* .slide-leave {\r\n} */\n.slide-leave-active {\r\n  -webkit-animation: slide-out 0.5s ease-out forwards;\r\n          animation: slide-out 0.5s ease-out forwards;\r\n  transition: opacity 0.5s;\r\n  opacity: 0;\n}\n@-webkit-keyframes slide-in {\nfrom {\r\n    transform: translateY(100px);\n}\nto {\r\n    transform: translateY(0);\n}\n}\n@keyframes slide-in {\nfrom {\r\n    transform: translateY(100px);\n}\nto {\r\n    transform: translateY(0);\n}\n}\n@-webkit-keyframes slide-out {\nfrom {\r\n    transform: translateY(0);\n}\nto {\r\n    transform: translateY(20px);\n}\n}\n@keyframes slide-out {\nfrom {\r\n    transform: translateY(0);\n}\nto {\r\n    transform: translateY(20px);\n}\n}\n.animated {\r\n  -webkit-animation-duration: 400ms;\r\n  animation-duration: 400ms;\n}\n.nav_green {\r\n  background: #0e8cb3;\r\n  color: white;\r\n  padding: 2px 10px;\n}\n.nav_green .navbar-toggler {\r\n  color: rgba(255, 255, 255, 0.5);\r\n  border-color: rgba(255, 255, 255, 0.3);\n}\n.nav_green .navbar-brand {\r\n  color: white;\n}\n.nav_green .navbar-toggler-icon {\r\n  background-image: url(\"data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='rgba(255, 255, 255, 1)' stroke-width='3' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e\");\n}\n.sidebar {\r\n  position: fixed;\r\n  top: 0;\r\n  right: 0;\r\n  width: 20em;\r\n  height: 100%;\r\n  padding: 0px;\r\n  z-index: 1;\r\n  background-color: #44484c;\r\n  overflow-x: hidden;\r\n  transition: 0.5s;\n}\nnav {\r\n  height: 45px;\n}\n.bottom_nav {\r\n  position: relative;\r\n  height: 32px;\r\n  padding: 4px 1px;\r\n  background: #0a6d8c;\r\n  color: white;\n}\n.bottom_nav .text-center i {\r\n  font-size: 19px;\r\n  margin-top: 2px;\n}\n.bottom_nav .date {\r\n  cursor: pointer;\n}\n.bottom_nav .date i, .navbar-brand i {\r\n  color:#f9ad1f;font-size:15px;\n}\n.navbar-brand {\r\n  padding: 0;\n}\n.bottom_nav .clock {\r\n  width: 35px;\r\n  margin: auto;\r\n  background: #0e8cb3;\n}\n.top_text {\r\n  height: 45px;\r\n  background: #1e96bb;\r\n  /* font-family: Rubik; */\r\n  font-size: 18px;\r\n  color: #fff;\r\n  padding-left: 10px;\r\n  padding-top: 10px;\r\n  padding-right: 10px;\n}\n.bottom_nav div.row {\r\n  margin: 0;\n}\n#menu {\r\n  padding-top: 20px;\n}\na {\r\n  text-decoration: none;\n}\n#menu li a,\r\n#menu li {\r\n  color: white;\r\n  padding-bottom: 10px;\n}\n#menu .area li span {\r\n  cursor: pointer;\n}\n#menu .area li span:hover {\r\n  color: #a7a6a6;\n}\n#menu .active a {\r\n  color: #a7a6a6;\r\n  cursor: default;\r\n  text-decoration: none;\n}\ni {\r\n  cursor: pointer;\n}\nli {\r\n  list-style-type: none;\n}\nhr {\r\n  border-top: 1px solid rgba(251, 247, 247, 0.2);\n}\n.clock_card {\r\n  width: 500px;\r\n  margin: 3px auto;\r\n  box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);\r\n  border: none;\n}\n.clock_card p {\r\n  margin-bottom: 5px;\n}\n.card-body {\r\n  padding: 10px;\n}\n.detail_data {\r\n  width: 70px;\r\n  margin: auto;\r\n  color: rgb(73, 144, 226);\n}\n.detail_data i {\r\n  font-size: 40px;\r\n  color: rgb(73, 144, 226);\r\n  cursor:default;\n}\ntable {\r\n  text-align: center;\r\n  width: 600px;\r\n  margin: auto;\r\n  margin-top: 30px;\n}\n.table thead th, .table th, .table td {\r\n  border: none;\n}\n.footer {\r\n  margin-top: 50px;\r\n  padding: 20px;\r\n  color: white;\r\n  background-image: url(/img/epsa_footer_lg-2dc54a1a6a.jpg);\r\n  background-size: cover;\r\n  background-position: center;\n}\n.footer p {\r\n  margin-bottom: 5px;\n}\n@media only screen and (max-width: 600px) {\n.clock_card, table {\r\n    width: 100%;\n}\n.detail_data span:first-child{\r\n    font-size: 30px !important;\n}\n.table th, .table td {\r\n   \r\n    padding-left: 0.05rem;\r\n    padding-right: 0.05rem;\n}\n}\r\n", ""]);
+exports.push([module.i, "\n.display_none {\r\n  display: none;\n}\nsection {\r\n  margin-top: 50px;\n}\n.slide-enter {\r\n  opacity: 0;\n}\n.slide-enter-active {\r\n  -webkit-animation: slide-in 0.5s ease-out forwards;\r\n          animation: slide-in 0.5s ease-out forwards;\r\n  transition: opacity 0.5s;\n}\r\n/* .slide-leave {\r\n} */\n.slide-leave-active {\r\n  -webkit-animation: slide-out 0.5s ease-out forwards;\r\n          animation: slide-out 0.5s ease-out forwards;\r\n  transition: opacity 0.5s;\r\n  opacity: 0;\n}\n@-webkit-keyframes slide-in {\nfrom {\r\n    transform: translateY(100px);\n}\nto {\r\n    transform: translateY(0);\n}\n}\n@keyframes slide-in {\nfrom {\r\n    transform: translateY(100px);\n}\nto {\r\n    transform: translateY(0);\n}\n}\n@-webkit-keyframes slide-out {\nfrom {\r\n    transform: translateY(0);\n}\nto {\r\n    transform: translateY(20px);\n}\n}\n@keyframes slide-out {\nfrom {\r\n    transform: translateY(0);\n}\nto {\r\n    transform: translateY(20px);\n}\n}\n.animated {\r\n  -webkit-animation-duration: 400ms;\r\n  animation-duration: 400ms;\n}\n.nav_green {\r\n  background: #0e8cb3;\r\n  color: white;\r\n  padding: 2px 10px;\n}\n.nav_green .navbar-toggler {\r\n  color: rgba(255, 255, 255, 0.5);\r\n  border-color: rgba(255, 255, 255, 0.3);\n}\n.nav_green .navbar-brand {\r\n  color: white;\n}\n.nav_green .navbar-toggler-icon {\r\n  background-image: url(\"data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='rgba(255, 255, 255, 1)' stroke-width='3' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e\");\n}\n.sidebar {\r\n  position: fixed;\r\n  top: 0;\r\n  right: 0;\r\n  width: 20em;\r\n  height: 100%;\r\n  padding: 0px;\r\n  z-index: 1;\r\n  background-color: #44484c;\r\n  overflow-x: hidden;\r\n  transition: 0.5s;\n}\nnav {\r\n  height: 45px;\n}\n.bottom_nav {\r\n  position: relative;\r\n  height: 32px;\r\n  padding: 4px 1px;\r\n  background: #0a6d8c;\r\n  color: white;\n}\n.bottom_nav .text-center i {\r\n  font-size: 19px;\r\n  margin-top: 2px;\n}\n.bottom_nav .date {\r\n  cursor: pointer;\n}\n.bottom_nav .date i, .navbar-brand i {\r\n  color:#f9ad1f;font-size:15px;\n}\n.navbar-brand {\r\n  padding: 0;\n}\n.bottom_nav .clock {\r\n  width: 35px;\r\n  margin: auto;\r\n  background: #0e8cb3;\n}\n.top_text {\r\n  height: 45px;\r\n  background: #1e96bb;\r\n  /* font-family: Rubik; */\r\n  font-size: 18px;\r\n  color: #fff;\r\n  padding-left: 10px;\r\n  padding-top: 10px;\r\n  padding-right: 10px;\n}\n.bottom_nav div.row {\r\n  margin: 0;\n}\n#menu {\r\n  padding-top: 20px;\n}\na {\r\n  text-decoration: none;\n}\n#menu li a,\r\n#menu li {\r\n  color: white;\r\n  padding-bottom: 10px;\n}\n#menu .area li span {\r\n  cursor: pointer;\n}\n#menu .area li span:hover {\r\n  color: #a7a6a6;\n}\n#menu .active a {\r\n  color: #a7a6a6;\r\n  cursor: default;\r\n  text-decoration: none;\n}\ni {\r\n  cursor: pointer;\n}\nli {\r\n  list-style-type: none;\n}\nhr {\r\n  border-top: 1px solid rgba(251, 247, 247, 0.2);\n}\n.clock_card {\r\n  width: 500px;\r\n  margin: 3px auto;\r\n  box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);\r\n  border: none;\n}\n.clock_card p {\r\n  margin-bottom: 5px;\n}\n.card-body {\r\n  padding: 10px;\n}\n.detail_data {\r\n  width: 70px;\r\n  margin: auto;\r\n  color: rgb(73, 144, 226);\n}\n.detail_data i {\r\n  font-size: 40px;\r\n  color: rgb(73, 144, 226);\r\n  cursor:default;\n}\ntable {\r\n  text-align: center;\r\n  width: 600px;\r\n  margin: auto;\r\n  margin-top: 30px;\n}\n.table thead th, .table th, .table td {\r\n  border: none;\n}\n.footer {\r\n  margin-top: 50px;\r\n  padding: 20px;\r\n  color: white;\r\n  background-image: url(/img/epsa_footer_lg-2dc54a1a6a.jpg);\r\n  background-size: cover;\r\n  background-position: center;\n}\n.footer p {\r\n  margin-bottom: 5px;\n}\n.tbl_windir{\r\n  margin-top: -15px;\r\n  margin-bottom: 0px;\n}\n.tbl_timeinterval{\r\n  margin-top: -8px;\r\n  margin-bottom: 0px;\n}\n.sp_margin{\r\n  margin-right:-115%;\n}\n.sp_firstmargin{\r\n  margin-right:-115%;\n}\n.tbl_windir td{\r\n  border: 1px solid #b3b3b3;\r\n  padding: 5px;\n}\n.td_first{\r\n  width: 3.5%;\r\n  border-left:none  !important;\r\n  border-top:none !important;\r\n  border-bottom:none !important;\n}\n.tbl_windir i {\r\n    font-size: 30px;\r\n    color: rgb(150, 178, 0);\r\n    cursor: default;\n}\n.tbl_detail i{\r\n    color: rgb(150, 178, 0);\r\n    cursor: default;\n}\n.btn_excel{\r\n  background-color: #1fbbeb;\r\n  color: white;\r\n  outline: 0;\r\n  box-shadow: 0;\r\n  border: 0px;\n}\n.btn_excel:hover{\r\n  background-color: #6dcbe7;\r\n  color: white;\n}\n@media only screen and (max-width: 600px) {\n.clock_card, table {\r\n    width: 100%;\n}\n.detail_data span:first-child{\r\n    font-size: 30px !important;\n}\n.table th, .table td {\r\n   \r\n    padding-left: 0.05rem;\r\n    padding-right: 0.05rem;\n}\n.td_first{\r\n    width: 10.8% !important;\n}\n.tbl_windir td{\r\n    padding: 4px !important;\n}\n.tbl_windir i {\r\n    font-size: 20px;\n}\n}\r\n", ""]);
 
 // exports
 
@@ -40378,14 +40410,16 @@ var render = function() {
                 : _vm._e()
             ],
             1
-          )
+          ),
+          _vm._v(" "),
+          _vm._m(1)
         ])
       ])
     ]),
     _vm._v(" "),
-    _vm._m(1),
+    _vm._m(2),
     _vm._v(" "),
-    _vm._m(2)
+    _vm._m(3)
   ])
 }
 var staticRenderFns = [
@@ -40509,21 +40543,84 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("div", {}, [
+      _c("table", { staticClass: "table tbl_windir" }, [
+        _c("tr", [
+          _c("td", { staticClass: "td_first" }),
+          _vm._v(" "),
+          _c("td", [_c("i", { staticClass: "fa fa-arrow-up arrow" })]),
+          _vm._v(" "),
+          _c("td", [_c("i", { staticClass: "fa fa-arrow-up arrow" })]),
+          _vm._v(" "),
+          _c("td", [_c("i", { staticClass: "fa fa-arrow-up arrow" })]),
+          _vm._v(" "),
+          _c("td", [_c("i", { staticClass: "fa fa-arrow-up arrow" })]),
+          _vm._v(" "),
+          _c("td", [_c("i", { staticClass: "fa fa-arrow-up arrow" })]),
+          _vm._v(" "),
+          _c("td", [_c("i", { staticClass: "fa fa-arrow-up arrow" })]),
+          _vm._v(" "),
+          _c("td", [_c("i", { staticClass: "fa fa-arrow-up arrow" })]),
+          _vm._v(" "),
+          _c("td", [_c("i", { staticClass: "fa fa-arrow-up arrow" })]),
+          _vm._v(" "),
+          _c("td", [_c("i", { staticClass: "fa fa-arrow-up arrow" })]),
+          _vm._v(" "),
+          _c("td", [_c("i", { staticClass: "fa fa-arrow-up arrow" })])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("table", { staticClass: "table tbl_timeinterval" }, [
+        _c("tr", [
+          _c("td", { staticClass: "td_first" }, [
+            _c("span", { staticClass: "sp_firstmargin" }, [_vm._v("18h")])
+          ]),
+          _vm._v(" "),
+          _c("td", [_c("span", { staticClass: "sp_margin" }, [_vm._v("21h")])]),
+          _vm._v(" "),
+          _c("td", [_c("span", { staticClass: "sp_margin" }, [_vm._v("00h")])]),
+          _vm._v(" "),
+          _c("td", [_c("span", { staticClass: "sp_margin" }, [_vm._v("03h")])]),
+          _vm._v(" "),
+          _c("td", [_c("span", { staticClass: "sp_margin" }, [_vm._v("06h")])]),
+          _vm._v(" "),
+          _c("td", [_c("span", { staticClass: "sp_margin" }, [_vm._v("09h")])]),
+          _vm._v(" "),
+          _c("td", [_c("span", { staticClass: "sp_margin" }, [_vm._v("12h")])]),
+          _vm._v(" "),
+          _c("td", [_c("span", { staticClass: "sp_margin" }, [_vm._v("15h")])]),
+          _vm._v(" "),
+          _c("td", [_c("span", { staticClass: "sp_margin" }, [_vm._v("18h")])]),
+          _vm._v(" "),
+          _c("td", [_c("span", { staticClass: "sp_margin" }, [_vm._v("21h")])]),
+          _vm._v(" "),
+          _c("td", [_c("span", { staticClass: "sp_margin" }, [_vm._v("00h")])])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("section", { staticStyle: { "margin-top": "60px" } }, [
-      _c("table", { staticClass: "table" }, [
+      _c("table", { staticClass: "table tbl_detail" }, [
         _c("thead", { staticStyle: { "border-bottom": "2px solid #737373" } }, [
           _c("th", [_vm._v("Fecha")]),
           _vm._v(" "),
-          _c("th", [_vm._v("Dir")]),
+          _c("th", [_vm._v("Dir.")]),
           _vm._v(" "),
-          _c("th", [_vm._v("Vel")])
+          _c("th", [_vm._v("Vel."), _c("sup", [_vm._v("kn")])])
         ]),
         _vm._v(" "),
         _c("tbody", [
           _c("tr", [
             _c("td", [_vm._v("27/08|17:00")]),
             _vm._v(" "),
-            _c("td", [_vm._v("274")]),
+            _c("td", [
+              _c("i", { staticClass: "fa fa-arrow-up arrow" }),
+              _vm._v("     SSW")
+            ]),
             _vm._v(" "),
             _c("td", [_vm._v("1.81")])
           ])
@@ -40536,21 +40633,37 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("section", { staticClass: "text-center" }, [
-      _c("p", [_vm._v("This is csv download")]),
+      _c("p", [_vm._v("Descargar Pronostico Viento")]),
       _vm._v(" "),
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-6" }, [
-          _c("input", {
-            staticClass: "btn btn-primary float-right",
-            attrs: { type: "button", value: "button" }
-          })
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-info btn_excel float-right",
+              attrs: { type: "button" }
+            },
+            [
+              _c("span", [_vm._v("Excel")]),
+              _vm._v(" "),
+              _c("i", { staticClass: "fa fa-download" })
+            ]
+          )
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "col-6" }, [
-          _c("input", {
-            staticClass: "btn btn-primary float-left",
-            attrs: { type: "button", value: "button" }
-          })
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-info btn_excel float-left",
+              attrs: { type: "button" }
+            },
+            [
+              _c("span", [_vm._v("CSV")]),
+              _vm._v(" "),
+              _c("i", { staticClass: "fa fa-download" })
+            ]
+          )
         ])
       ]),
       _vm._v(" "),

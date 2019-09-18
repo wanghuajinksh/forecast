@@ -370,6 +370,50 @@ table {
 .footer p {
   margin-bottom: 5px;
 }
+.tbl_windir{
+  margin-top: -15px;
+  margin-bottom: 0px;
+}
+.tbl_timeinterval{
+  margin-top: -8px;
+  margin-bottom: 0px;
+}
+.sp_margin{
+  margin-right:-115%;
+}
+.sp_firstmargin{
+  margin-right:-115%;
+}
+.tbl_windir td{
+  border: 1px solid #b3b3b3;
+  padding: 5px;
+}
+.td_first{
+  width: 3.5%;
+  border-left:none  !important;
+  border-top:none !important;
+  border-bottom:none !important;
+}
+.tbl_windir i {
+    font-size: 30px;
+    color: rgb(150, 178, 0);
+    cursor: default;
+}
+.tbl_detail i{
+    color: rgb(150, 178, 0);
+    cursor: default;
+}
+.btn_excel{
+  background-color: #1fbbeb;
+  color: white;
+  outline: 0;
+  box-shadow: 0;
+  border: 0px;
+}
+.btn_excel:hover{
+  background-color: #6dcbe7;
+  color: white;
+}
 @media only screen and (max-width: 600px) {
   .clock_card, table {
     width: 100%;
@@ -383,6 +427,15 @@ table {
     padding-left: 0.05rem;
     padding-right: 0.05rem;
     
+  }
+  .td_first{
+    width: 10.8% !important;
+  }
+  .tbl_windir td{
+    padding: 4px !important;
+  }
+  .tbl_windir i {
+    font-size: 20px;
   }
 }
 </style>
