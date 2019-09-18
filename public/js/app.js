@@ -2285,7 +2285,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             }
           }, {
             id: 'C',
-            // type: 'linear',
+            type: 'linear',
             position: 'left',
             ticks: {
               min: 0,
@@ -2297,7 +2297,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             }
           }, {
             id: 'D',
-            // type: 'linear',
+            type: 'linear',
             position: 'left',
             ticks: {
               min: 0,
@@ -2307,12 +2307,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               drawBorder: false,
               display: false
             }
-          } // scaleLabel: {
-          //   display: true,
-          //   labelString: 'probability',
-          //   lineHeight: 2,
-          // }
-          ],
+          }],
           xAxes: [{
             ticks: {
               beginAtZero: true,
@@ -2364,7 +2359,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               }
             }
 
-            console.log(_this.chart_data_multi_left);
+            var max_data = [];
+            var min_data = [];
+            max_data = _this.chart_data_multi_left.slice();
+            min_data = _this.chart_data_multi_left.slice();
+            max_data.fill(Math.max.apply(null, _this.chart_data_multi_left));
+            min_data.fill(Math.min.apply(null, _this.chart_data_multi_left));
             _this.chartdata_normal = {
               labels: _this.chart_labels_normal,
               datasets: [{
@@ -2384,28 +2384,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 data: _this.chart_data_multi_left,
                 fill: false,
                 borderWidth: 3,
-                borderColor: '#dc5c0d'
+                borderColor: '#247ade'
               }, {
                 label: 'tp',
                 yAxisID: 'B',
                 data: _this.chart_data_multi_right,
                 fill: false,
                 borderWidth: 3,
-                borderColor: '#247ade'
+                borderColor: '#dc5c0d'
               }, {
-                label: 'tp',
+                label: 'max',
                 yAxisID: 'A',
-                data: [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
+                data: max_data,
                 fill: false,
-                borderWidth: 3,
-                borderColor: '#247ade'
+                borderWidth: 1,
+                borderColor: '#dc5c0d'
               }, {
-                label: 'tp',
+                label: 'min',
                 yAxisID: 'A',
-                data: [3.5, 3.5, 3.5, 3.5, 3.5, 3.5, 3.5, 3.5, 3.5, 3.5, 3.5],
+                data: min_data,
                 fill: false,
-                borderWidth: 3,
-                borderColor: '#247ade'
+                borderWidth: 1,
+                borderColor: '#41c53a'
               }]
             };
             _this.loaded = true;
@@ -2424,7 +2424,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       date = value.split(' ')[1];
       date = date.split(':');
       return date[0] + 'h';
-    }
+    } // max_line: function(value){
+    //   if(value.length == 0) return '';
+    //   let max = Math.max.apply(null, value);
+    //   let max_data = [];
+    //   max_data.fill(max, 0, value.length);
+    //   return 'max_data';
+    // },
+    // min_line: function(value){
+    //   if(value.length == 0) return '';
+    //   let min = Math.min.apply(null, value);
+    //   let min_data = [];
+    //   min_data.fill(min, 0, value.length);
+    //   return min_data;
+    // }
+
   },
   mounted: function () {
     var _mounted = _asyncToGenerator(

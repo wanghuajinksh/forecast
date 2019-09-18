@@ -208,7 +208,7 @@ import LineChart from '../chart';
                             }
                           }, {
                             id: 'C',
-                            // type: 'linear',
+                            type: 'linear',
                             position: 'left',
                             ticks: {
                               min: 0,
@@ -220,7 +220,7 @@ import LineChart from '../chart';
                             },
                           }, {
                             id: 'D',
-                            // type: 'linear',
+                            type: 'linear',
                             position: 'left',
                             ticks: {
                               min: 0,
@@ -230,18 +230,14 @@ import LineChart from '../chart';
                               drawBorder: false,
                               display: false,
                             },
-                          }
-                          // scaleLabel: {
-                          //   display: true,
-                          //   labelString: 'probability',
-                          //   lineHeight: 2,
-                          // }
+                          }  
+                         
                         ],
                         xAxes: [{
-                        ticks: {
-                            beginAtZero:true,
-                            fontSize: 15
-                        }
+                          ticks: {
+                              beginAtZero:true,
+                              fontSize: 15
+                          }
                         }]
                     },
                     maintainAspectRatio: false,
@@ -282,7 +278,14 @@ import LineChart from '../chart';
                               }
                               
                             }
-                            console.log(this.chart_data_multi_left);
+
+                            let max_data = [];
+                            let min_data = [];
+                            max_data = this.chart_data_multi_left.slice();
+                            min_data = this.chart_data_multi_left.slice();
+                            max_data.fill(Math.max.apply(null, this.chart_data_multi_left));
+                            min_data.fill(Math.min.apply(null, this.chart_data_multi_left));
+
                             this.chartdata_normal = {
                               labels: this.chart_labels_normal,
                               datasets: [{
@@ -296,35 +299,37 @@ import LineChart from '../chart';
                             };
                             this.chartdata_multi = {
                               labels: this.chart_labels_normal,
+                              
                               datasets: [{
                                 label: 'hm0',
                                 yAxisID: 'A',
                                 data: this.chart_data_multi_left,
                                 fill: false,
                                 borderWidth: 3,
-                                borderColor: '#dc5c0d',
+                                borderColor: '#247ade',
                               }, {
                                 label: 'tp',
                                 yAxisID: 'B',
                                 data: this.chart_data_multi_right,
                                 fill: false,
                                 borderWidth: 3,
-                                borderColor: '#247ade',
+                                borderColor: '#dc5c0d',
                               }, {
-                                label: 'tp',
+                                label: 'max',
                                 yAxisID: 'A',
-                                data: [0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5],
+                                data: max_data,
                                 fill: false,
-                                borderWidth: 3,
-                                borderColor: '#247ade',
+                                borderWidth: 1,
+                                borderColor: '#dc5c0d',
                               }, {
-                                label: 'tp',
+                                label: 'min',
                                 yAxisID: 'A',
-                                data: [3.5,3.5,3.5,3.5,3.5,3.5,3.5,3.5,3.5,3.5,3.5],
+                                data: min_data,
                                 fill: false,
-                                borderWidth: 3,
-                                borderColor: '#247ade',
+                                borderWidth: 1,
+                                borderColor: '#41c53a',
                               }]
+                              
                             };
                             this.loaded = true;
                         }
@@ -346,7 +351,21 @@ import LineChart from '../chart';
               date = value.split(' ')[1];
               date = date.split(':');
               return date[0] + 'h';
-            }
+            },
+            // max_line: function(value){
+            //   if(value.length == 0) return '';
+            //   let max = Math.max.apply(null, value);
+            //   let max_data = [];
+            //   max_data.fill(max, 0, value.length);
+            //   return 'max_data';
+            // },
+            // min_line: function(value){
+            //   if(value.length == 0) return '';
+            //   let min = Math.min.apply(null, value);
+            //   let min_data = [];
+            //   min_data.fill(min, 0, value.length);
+            //   return min_data;
+            // }
         },
         async mounted () {
             this.loaded = false;
