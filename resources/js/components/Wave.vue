@@ -92,7 +92,15 @@
       <section>
         <div class="row">
           <div class="col-md-6">
-            <div style="position:relative;">
+            <div class="row" style="margin-bottom: 20px;">
+              <div class="col-3">
+                <div><b>Direction&nbsp;&nbsp;<sup>o</sup></b></div>
+                <div style="margin-top: -5px;"><b>(DirTp)</b></div>
+              </div>
+              <div class="col-9">
+              </div>
+            </div>
+            <div style="position:relative; margin-bottom:40px;">
                 <line-chart
                     v-if="loaded"
                     :chart-data="chartdata_normal"
@@ -100,6 +108,18 @@
             </div>
           </div>
           <div class="col-md-6">
+            <div class="row" style="margin-bottom: 20px;">
+              <div class="col-2" style="padding-right: 0px; text-align: right;">
+                <div><span>Altura</span>&nbsp;&nbsp;<sup>m</sup></div>
+                <div style="margin-top: -5px;">(Hm)<sub>0</sub>&nbsp;&nbsp;<i class="fa fa-minus" style="color:#247ade;"></i></div>
+              </div>
+              <div class="col-7">
+              </div>
+              <div class="col-3" style="text-align: right;">
+                <div><span>Periodo</span>&nbsp;&nbsp;<sup>s</sup></div>
+                <div style="margin-top: -5px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-minus" style="color:#dc5c0d;"></i>&nbsp;&nbsp;(Tp)</div>
+              </div>
+            </div>
             <line-chart
                 v-if="loaded"
                 :chart-data="chartdata_multi"
@@ -126,10 +146,10 @@
         </table>
       </section>
       <section class="text-center">
-        <p>This is csv download</p>
+        <p>Descargar Pronostico Viento</p>
         <div class="row">
-          <div class="col-6"><input type="button" class="btn btn-primary float-right" value="button"></div>
-          <div class="col-6"><input type="button" class="btn btn-primary float-left" value="button"></div>
+          <div class="col-6"><button type="button" class="btn btn-info btn_excel float-right"><span>Excel</span>&nbsp;<i class="fa fa-download"></i></button></div>
+          <div class="col-6"><button type="button" class="btn btn-info btn_excel float-left"><span>CSV</span>&nbsp;<i class="fa fa-download"></i></button></div>
         </div>
         <div class="clearfix"></div>
       </section>
@@ -157,7 +177,7 @@ import LineChart from '../chart';
                     scales: {
                         yAxes: [{
                           ticks: {
-                              beginAtZero:true,
+                              // beginAtZero:true,
                               fontSize: 15,
                               // max: 50
                           },
